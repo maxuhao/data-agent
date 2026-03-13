@@ -24,6 +24,14 @@ env/
 .env.local
 .env.*.local
 
+# Local configuration files (may contain sensitive data)
+*.local.yml
+*.local.yaml
+config.local.yml
+app_config.local.yml
+*.secret.yml
+*.secret.yaml
+
 # Python dependencies
 uv.lock
 poetry.lock
