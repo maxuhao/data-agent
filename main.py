@@ -30,18 +30,22 @@
 """
 import uuid
 
+from dotenv import load_dotenv
+
 from fastapi import FastAPI, Request
 
 from app.api.lifespan import lifespan
 from app.api.routers.query_router import query_router
 from app.core.context import request_id_context_var
 
+# 加载.env文件中的环境变量到系统环境变量
+load_dotenv()
+
 # 创建 FastAPI 应用实例，配置 lifespan 进行资源管理（数据库连接、向量库客户端等）
 app = FastAPI(lifespan=lifespan)
 
 # 注册查询路由器，包含所有与用户查询相关的 API 端点
 app.include_router(query_router)
-
 
 @app.middleware("http")
 async def add_process_time_header(request: Request, call_next):
@@ -70,6 +74,7 @@ async def add_process_time_header(request: Request, call_next):
         - 每个请求都有独立的 request_id，即使在高并发场景下也不会冲突
         - 日志系统会自动从 contextvar 读取 request_id 并记录到日志中
     """
+    # 要写在call_next之前！！！（中间件要求）
     # 请求被处理之前：生成唯一的请求 ID
     request_id = uuid.uuid4()
     # 将 request_id 设置到当前异步上下文中，供后续业务逻辑和日志系统使用

@@ -59,15 +59,16 @@ from app.agent.context import DataAgentContext
 from app.agent.state import DataAgentState, DateInfoState, DBInfoState
 from app.core.log import logger
 
-
+# runtime 是 LangGraph 的运行时对象，包含上下文和状态
+# state 是 LangGraph 的状态对象，包含输入数据、中间结果和输出数据
 async def add_extra_context(state: DataAgentState, runtime: Runtime[DataAgentContext]):
     writer = runtime.stream_writer
     step = "添加额外上下文"
     writer({"type": "progress", "step": step, "status": "running"})
 
     try:
+        # 获取数据库信息
         dw_mysql_repository = runtime.context["dw_mysql_repository"]
-
         today = date.today()
         date_str = today.strftime("%Y-%m-%d")
         weekday = today.strftime("%A")

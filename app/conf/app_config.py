@@ -36,7 +36,7 @@
 - 支持环境变量和配置文件两种方式
 
 配置加载流程：
-1. 从项目根目录的 conf/app_config.yml 读取配置
+1. 从项目根目录的 conf/app_config.yaml 读取配置
 2. 使用 OmegaConf.structured 定义 Schema
 3. 合并配置并转换为 AppConfig 对象
 4. 全局唯一的 app_config 实例供各模块使用
@@ -126,7 +126,7 @@ class AppConfig:
     llm: LLMConfig
 
 
-config_file = Path(__file__).parents[2] / 'conf' / 'app_config.yml'
+config_file = Path(__file__).parents[2] / 'conf' / 'app_config.yaml'
 context = OmegaConf.load(config_file)
 schema = OmegaConf.structured(AppConfig)
 app_config: AppConfig = OmegaConf.to_object(OmegaConf.merge(schema, context))

@@ -97,6 +97,10 @@ import argparse
 import asyncio
 from pathlib import Path
 
+# 必须先加载.env文件，确保环境变量在其他模块导入前生效
+from dotenv import load_dotenv
+load_dotenv()
+
 from app.clients.embedding_client_manager import embedding_client_manager
 from app.clients.es_client_manager import es_client_manager
 from app.clients.mysql_client_manager import meta_mysql_client_manager, dw_mysql_client_manager
