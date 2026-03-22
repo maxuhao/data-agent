@@ -64,17 +64,17 @@ async def correct_sql(state: DataAgentState, runtime: Runtime[DataAgentContext])
     writer({"type": "progress", "step": step, "status": "running"})
 
     try:
-        table_infos = state["table_infos"]
-        metric_infos = state["metric_infos"]
-        date_info = state["date_info"]
-        db_info = state["db_info"]
-        query = state["query"]
-        sql = state["sql"]
-        error = state["error"]
+        table_infos = state["table_infos"] # 表信息
+        metric_infos = state["metric_infos"] # 指标信息
+        date_info = state["date_info"] # 日期信息
+        db_info = state["db_info"] # 数据库信息
+        query = state["query"] # 用户查询
+        sql = state["sql"] # 生成的 SQL
+        error = state["error"] # 错误信息
 
         prompt = PromptTemplate(
-            template=load_prompt("correct_sql"),
-            input_variables=["table_infos", "metric_infos", "date_info", "db_info", "query", "sql", "error"],
+            template=load_prompt("correct_sql"), # 加载提示词
+            input_variables=["table_infos", "metric_infos", "date_info", "db_info", "query", "sql", "error"], # 输入变量
         )
         output_parser = StrOutputParser()
         chain = prompt | llm | output_parser

@@ -83,3 +83,8 @@ async def add_process_time_header(request: Request, call_next):
     response = await call_next(request)
     # 请求被处理之后：返回响应（此时 request_id 仍然可在日志中使用）
     return response
+
+
+if __name__ == '__main__':
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

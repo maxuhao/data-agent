@@ -34,9 +34,24 @@
         response = llm.invoke(prompt)
         return {"sql": response.content}
 """
+from dotenv import load_dotenv
 from langchain.chat_models import init_chat_model
 
+# 确保 .env 文件已加载（双重保险）
+load_dotenv()
+
+import os
 from app.conf.app_config import app_config
+
+# 输出 LLM 配置信息用于调试
+print("=" * 50)
+print("LLM 配置信息:")
+print(f"模型名称：{app_config.llm.model_name}")
+print(f"API Key: {app_config.llm.api_key[:20]}...{app_config.llm.api_key[-10:]}")
+print(f"Base URL: {app_config.llm.base_url}")
+print(f"\n环境变量检查:")
+print(f"LLM_API_KEY (env): {os.getenv('LLM_API_KEY', 'NOT_SET')[:20]}...{os.getenv('LLM_API_KEY', '')[-10:] if os.getenv('LLM_API_KEY') else ''}")
+print("=" * 50)
 
 llm = init_chat_model(model=app_config.llm.model_name,
                       model_provider="openai",

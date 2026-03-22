@@ -83,6 +83,7 @@ async def recall_value(state: DataAgentState, runtime: Runtime[DataAgentContext]
 
         retrieved_value_infos: list[ValueInfo] = list(value_infos_map.values())
         logger.info(f"Recalled value infos: {list(value_infos_map.keys())}")
+        logger.info(f"Recalled value infos: {retrieved_value_infos}")
         writer({"type": "progress", "step": step, "status": "success"})
         return {"retrieved_value_infos": retrieved_value_infos}
     except Exception as e:

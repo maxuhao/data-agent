@@ -65,7 +65,7 @@ async def extract_keywords(state: DataAgentState, runtime: Runtime[DataAgentCont
             "l",  # 常用固定短语
         )
 
-        keywords = jieba.analyse.extract_tags(query, allowPOS=allow_pos)
+        keywords = jieba.analyse.extract_tags(query, allowPOS=allow_pos) # 使用 jieba.analyse.extract_tags 进行关键词抽取 allowPOS 参数指定允许的词性
 
         keywords = list(set(keywords + [query]))
 

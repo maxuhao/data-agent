@@ -53,7 +53,11 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+from dotenv import load_dotenv
 from omegaconf import OmegaConf
+
+# 确保在加载配置文件前先加载 .env 文件
+load_dotenv()
 
 
 @dataclass

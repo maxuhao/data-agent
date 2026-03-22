@@ -88,6 +88,7 @@ async def recall_metric(state: DataAgentState, runtime: Runtime[DataAgentContext
         retrieved_metric_infos: list[MetricInfo] = list(metric_info_map.values())
 
         logger.info(f"Recalled metric infos: {list(metric_info_map.keys())}")
+        logger.info(f"Recalled metric infos: {list(retrieved_metric_infos)}")
         writer({"type": "progress", "step": step, "status": "success"})
         return {"retrieved_metric_infos": retrieved_metric_infos}
     except Exception as e:
